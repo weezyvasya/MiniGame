@@ -11,7 +11,7 @@ export function HUD() {
     <div className={styles.hud}>
       <div className={styles.controls}>
         <span>WASD</span>
-        <span>Move</span>
+        <span>Walk</span>
       </div>
       <div className={styles.controls}>
         <span>Mouse</span>

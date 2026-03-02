@@ -11,11 +11,11 @@ import { RigidBody } from '@react-three/rapier'
 import * as THREE from 'three'
 import { useThree } from '@react-three/fiber'
 import { useGameStore } from '@/store/gameStore'
+import { useSettingsStore } from '@/store/settingsStore'
 
-const MOVE_SPEED = 5
+const MOVE_SPEED = 3
 const SPRINT_MULTIPLIER = 1.5
 const COLLISION_RADIUS = 1
-const GROUND_Y = 0
 
 export function Player() {
   const rigidBodyRef = useRef<any>(null)
@@ -28,10 +28,12 @@ export function Player() {
   const pitchRef = useRef(0)
 
   // Listen for mouse movement (pointer lock events)
+  const mouseSensitivity = useSettingsStore((s) => s.mouseSensitivity)
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (document.pointerLockElement) {
-        const SENSITIVITY = 0.002
+        const SENSITIVITY = 0.002 * mouseSensitivity
         const PITCH_LIMIT = Math.PI / 2 - 0.1
         yawRef.current -= e.movementX * SENSITIVITY
         pitchRef.current -= e.movementY * SENSITIVITY
@@ -39,8 +41,8 @@ export function Player() {
       }
     }
     document.addEventListener('mousemove', handleMouseMove)
-    return () => document.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+    return () =>     document.removeEventListener('mousemove', handleMouseMove)
+  }, [mouseSensitivity])
 
   useFrame(() => {
     if (isPaused) return
@@ -89,7 +91,7 @@ export function Player() {
     <RigidBody
       ref={rigidBodyRef}
       type="dynamic"
-      position={[0, GROUND_Y, 0]}
+      position={[2.5, 0.6, 2]}
       colliders="cuboid"
       args={[COLLISION_RADIUS * 0.5, COLLISION_RADIUS, COLLISION_RADIUS * 0.5]}
       lockRotations

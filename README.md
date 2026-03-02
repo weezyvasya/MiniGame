@@ -1,6 +1,13 @@
-# 80s Synthwave Exploration
+# 1980s Apartment Exploration
 
-A 3D exploration game with full keyboard controls and 80s aesthetic. Built with React Three Fiber, Rapier physics, and Electron.
+A detailed, explorable 3D apartment set in 1980s America. Walk through every room, examine objects, and experience authentic 80s interior design. Built with React Three Fiber, Rapier physics, and Electron.
+
+## Features
+
+- **Living Room** - Bulky teal sofa, CRT TV with wooden cabinet, VCR with blinking clock, stereo with animated equalizer, lava lamp, floor lamp, Patrick Nagel posters, ficus plant
+- **Kitchen** - Avocado refrigerator, Formica countertops, checkered tile floor, microwave, toaster, blender, fruit bowl, wall phone, July 1984 calendar
+- **Bedroom** - Queen bed with floral comforter, nightstand with red LED alarm clock, Rubik's cube, dresser with mirror, vanity, ceiling fan, stuffed animal, closet
+- **Bathroom** - Pink/teal fixtures, medicine cabinet, shower curtain, toiletries (Aqua Net style), scale
 
 ## Tech Stack
 
@@ -8,8 +15,8 @@ A 3D exploration game with full keyboard controls and 80s aesthetic. Built with 
 - **@react-three/fiber** - React renderer for Three.js
 - **@react-three/drei** - R3F helpers
 - **@react-three/rapier** - Physics and collision
-- **@react-three/postprocessing** - Bloom, Chromatic Aberration, Vignette
-- **Zustand** - State management
+- **@react-three/postprocessing** - Bloom, Vignette
+- **Zustand** - State management (game + settings with localStorage)
 - **Electron** - Desktop wrapper
 
 ## Quick Start
@@ -21,16 +28,13 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173 and click to lock the mouse for camera control.
+Open http://localhost:5173 and click to lock the mouse.
 
 ### Development (Electron)
 
 ```bash
-npm install
 npm run electron:dev
 ```
-
-This builds the Electron main process, starts the Vite dev server, and launches Electron once the server is ready.
 
 ### Build for Production
 
@@ -38,7 +42,7 @@ This builds the Electron main process, starts the Vite dev server, and launches 
 npm run electron:build
 ```
 
-Outputs a Windows .exe installer in the `out/` directory.
+Outputs a Windows .exe in `out/`.
 
 ## Controls
 
@@ -51,24 +55,30 @@ Outputs a Windows .exe installer in the `out/` directory.
 | Shift | Sprint |
 | Mouse | Look around |
 | Click | Lock pointer |
-| ESC | Pause / Menu |
+| ESC | Settings menu |
+
+## Settings (ESC)
+
+- **Brightness** (0–2)
+- **Sharpness** (0–100%)
+- **Mouse Sensitivity** (0.1–2.0)
+- **Motion Blur** (toggle)
+- **VHS Effect** (toggle)
+
+Settings persist to localStorage.
 
 ## Project Structure
 
 ```
-├── electron/           # Electron main process
-│   ├── main.ts         # Window config, fullscreen, pointer lock
-│   └── preload.ts      # Context bridge APIs
+├── electron/              # Electron main process
 ├── src/
 │   ├── components/
-│   │   ├── 3D/         # Scene, Player, props
-│   │   └── UI/         # HUD, PauseMenu
-│   ├── hooks/          # useKeyboardControls, useMouseControls
-│   └── store/          # Zustand game state
+│   │   ├── 3D/
+│   │   │   ├── apartment/   # LivingRoom, Kitchen, Bedroom, Bathroom
+│   │   │   ├── Player.tsx
+│   │   │   └── Scene.tsx
+│   │   └── UI/             # HUD, SettingsMenu
+│   ├── lib/materials.ts    # Wood, fabric, plastic, glass, etc.
+│   ├── hooks/
+│   └── store/              # gameStore, settingsStore
 ```
-
-## Customization
-
-- **Speed**: Edit `MOVE_SPEED` and `SPRINT_MULTIPLIER` in `src/components/3D/Player.tsx`
-- **Sensitivity**: Edit `SENSITIVITY` in the Player's mouse move handler
-- **Colors**: 80s palette: #FF6EC7 (pink), #00FFFF (cyan), #6A0DAD (purple), #FF4500 (orange)

@@ -17,6 +17,6 @@
     "allowToChangeInstallationDirectory": true
   },
   "extraMetadata": {
-    "main": "dist-electron/main.js"
+    "main": "dist-electron/main.cjs"
   }
 }

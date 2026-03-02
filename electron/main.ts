@@ -20,7 +20,7 @@ function createWindow(): void {
     fullscreenable: true,
     frame: true,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.cjs'),
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: false,

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:electron": "tsc -p electron/tsconfig.json",
+    "build:electron": "tsc -p electron/tsconfig.json && node -e \"const fs=require('fs'); fs.renameSync('dist-electron/main.js','dist-electron/main.cjs'); fs.renameSync('dist-electron/preload.js','dist-electron/preload.cjs');\"",
     "lint": "eslint .",
     "preview": "vite preview",
     "electron:dev": "npm run build:electron && concurrently -k \"cross-env NODE_ENV=development vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
@@ -44,7 +44,7 @@
     "vite": "^5.2.0",
     "wait-on": "^7.2.0"
   },
-  "main": "dist-electron/main.js",
+  "main": "dist-electron/main.cjs",
   "build": {
     "extends": "./electron-builder.json"
   }
