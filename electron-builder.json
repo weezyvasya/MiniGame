@@ -1,0 +1,22 @@
+{
+  "appId": "com.minigame.synthwave",
+  "productName": "80s Synthwave Exploration",
+  "directories": {
+    "output": "out"
+  },
+  "files": [
+    "dist/**/*",
+    "dist-electron/**/*"
+  ],
+  "win": {
+    "target": ["nsis"],
+    "icon": "public/icon.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true
+  },
+  "extraMetadata": {
+    "main": "dist-electron/main.js"
+  }
+}
